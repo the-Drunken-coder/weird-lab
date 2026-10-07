@@ -13,11 +13,11 @@ A public repository is the source of truth. Read repository files, issue labels 
 | Local tracker | .scratch/<feature>/spec.md, .scratch/<effort>/map.md, .scratch/<feature>/issues/<NN>-<slug>.md |
 | Domain model | GLOSSARY.md, GLOSSARY-MAP.md, or older CONTEXT.md and CONTEXT-MAP.md |
 | Architecture decisions | docs/adr/ or the configured ADR directory |
-| Research and prototypes | Links from issues to source files, notes, and throwaway branches |
+| Research and prototypes | wayfinder:research / wayfinder:prototype labels, matching Markdown paths, and source links |
 
 Specs and tickets can match a format without proving which agent wrote them. Skills referenced in a document and skills stored in a repo are separate facts. Neither proves execution or the full installed skill inventory.
 
-Resolve project labels through its configuration. In course-video-manager, ready-for-agent maps to Sandcastle. That label alone does not distinguish a spec from a ticket.
+Project configuration can explain labels. In course-video-manager, ready-for-agent maps to Sandcastle. The viewer exposes that configuration as source documents and recognizes specs and tickets through headings; it does not treat Sandcastle alone as proof of either format.
 
 Show native parent/child and blocker relationships separately from references found in Markdown. Ticket #1725 names spec #1723 under Parent, but the current GitHub API has no native parent for it. A parser should retain the reference and its source.
 

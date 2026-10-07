@@ -1,27 +1,37 @@
 # Skill Atlas
 
-A prototype of a public GitHub repository viewer for projects built with Matt Pocock's skills.
+A working prototype that turns a public GitHub repository into an index of its specs, tickets, Wayfinder maps, skills, and project documents.
 
-The question for this first pass: which layout makes the relationship between specifications, tickets, Wayfinder decisions, and repository documents easiest to understand?
-
-Run from this folder:
+Run from this folder, using Node 22.12 or newer:
 
 ```sh
+npm install
 npm run prototype
 ```
 
-Open http://localhost:5173/matt-prototype/skill-atlas/?variant=A. Use the bottom switcher or left/right arrows to compare the three static directions.
+Open [localhost:5173](http://localhost:5173). Paste a GitHub repository URL or `owner/repo`, or open a path directly:
 
-For a server-free review, open prototypes/matt-prototype/skill-atlas/static-mocks.html in a browser. This is a self-contained export of the same mocks. Screenshots of A, B, and C are in prototypes/screenshots/.
+```text
+http://localhost:5173/mattpocock/course-video-manager
+http://localhost:5173/mattpocock/skills
+```
 
-- A, Artifact explorer: a dense index with source evidence beside the selected artifact.
-- B, Wayfinder atlas: a map of decisions grouped by subject.
-- C, Reading room: a specification with its implementation ticket and source references.
+The approved design combines three views:
 
-These are throwaway static mocks, awaiting a visual choice before interactive implementation. The data is a captured snapshot of public issues in mattpocock/course-video-manager. It is not a live scan. Repository URLs, issue status, and source labels come from that snapshot. All document summaries are paraphrases. The Wayfinder lines show map membership, not dependencies.
+- Artifact explorer: search and filter a dense index, with recognition evidence and original source links.
+- Wayfinder atlas: follow an effort's linked decisions, grouped by their source labels. Lines show map membership; blockers appear in the source details.
+- Document reader: read sanitized source Markdown with a table of contents, related implementation work, and recognition evidence.
 
-The intended interactive prototype accepts a GitHub URL or /owner/repo path, fetches public repository files and issues, recognizes known artifact formats, and lets the reader inspect each item with its evidence and GitHub source link. It needs no database or GitHub write access.
+Selected artifacts and decisions have shareable URLs. Public issues, linked pull requests, repo-local skills, instructions, domain documents, ADRs, research notes, and local planning files can be opened. A skill reference or matching document format does not prove the skill ran. Wayfinder maps show public planning history; private sessions and temporary handoffs are unavailable.
 
-Design constraints are recorded in DESIGN.md. RECOGNITION.md records the source formats the viewer should recognize. A chosen direction will be recorded here before promotion. No direction has been selected yet.
+The browser reads GitHub directly. There is no server API, database, sign-in, token, or repository write access. State stays in memory; source responses are cached for five minutes. GitHub's anonymous rate limits apply.
 
-Checked the three layouts at desktop width and 390px, including switcher buttons, keyboard cycling, source links, and table-of-contents anchors. The T3 browser could not reach the local server, so the self-contained export was rendered through its native browser tools. The server responds normally over local HTTP.
+Each scan reads the default-branch file tree, the latest 100 issue/PR records, and up to 100 results from each of four targeted issue searches. PRs enter the viewer through links rather than the initial issue inventory. It lists up to 160 candidate files, reads 20 bodies initially, and loads other bodies when selected, with a 200 KB file limit. Native issue relationships load on selection. Coverage notes disclose truncation, failed requests, and unavailable sources. This is a bounded preview of the repository, not a complete inventory.
+
+`npm run build` checks types and creates `dist/`. `npm run preview` serves the build on port 5173 after the development server is stopped. A static host needs SPA fallback to `index.html` for `/owner/repo` links.
+
+The original three static layouts, screenshots, and captured source snapshot are archived on branch `prototype/skill-atlas-layout-study`, commit `3598874`. The user approved A for browsing, B for Wayfinder maps, and C for document reading. [DESIGN.md](DESIGN.md) records that decision; [RECOGNITION.md](RECOGNITION.md) records the public artifact formats and their sources.
+
+Verified in a browser against `mattpocock/course-video-manager`: 333 recognized artifacts in the bounded scan, spec #1723 and ticket #1725, and map #1197 with nine native child issues. Desktop and 390px layouts, direct URLs, back navigation, filtering, cancellation, missing repositories, network failures, and API limits were checked. The scanner was also checked against `mattpocock/skills` and a linked PR. No formal test suite is included in this throwaway prototype.
+
+Review screenshots from the October 6 browser run: [artifact explorer](docs/screenshots/explorer-desktop.png), [spec reader](docs/screenshots/reader-desktop.png), and [mobile reader](docs/screenshots/reader-mobile.png). Repository counts and issue states reflect that capture.

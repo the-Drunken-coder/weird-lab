@@ -4,7 +4,7 @@ Read a project's planning history without searching through raw GitHub files and
 
 Every classification carries evidence. A Wayfinder label is a strong signal. Specification headings are a format match. A skill mentioned in instructions is a reference, not proof that the skill ran. The public repo cannot expose private sessions or locally stored handoffs.
 
-The mocks use real public issues from mattpocock/course-video-manager, captured in prototypes/matt-prototype/skill-atlas/sources.json. The sample is explicitly limited to 13 issues. It is not the repo's complete inventory.
+The archived mocks use 13 real public issues from mattpocock/course-video-manager. Their source snapshot lives at prototypes/matt-prototype/skill-atlas/sources.json on the study branch. The working viewer now reads public GitHub sources live and reports its bounded coverage.
 
 ## Directions
 
@@ -28,4 +28,4 @@ The user approved A for browsing, B for Wayfinder maps, and C for reading specif
 - [CVM domain context](https://github.com/mattpocock/course-video-manager/blob/main/CONTEXT.md)
 - [UIZZE reference catalogue](https://uizze.com). The public GitHub, Ramp, and Slite examples informed compact navigation, flat information groups, and document hierarchy. The hosted design files were not available.
 
-The interactive pass should show loading, invalid URL, missing/private repository, no recognized artifacts, partial data, and GitHub rate limits. Unknown formats remain available as source documents rather than being silently assigned a skill.
+The interactive viewer shows loading, invalid URL, missing/private repository, no recognized artifacts, partial data, and GitHub rate limits. Linked issues with unknown formats remain source documents rather than being silently assigned a skill.

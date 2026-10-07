@@ -2,7 +2,20 @@
   "name": "skill-atlas-prototype",
   "private": true,
   "version": "0.0.0",
+  "type": "module",
   "scripts": {
-    "prototype": "python3 -m http.server 5173 --bind 0.0.0.0 --directory prototypes"
+    "dev": "vite --host 0.0.0.0 --port 5173 --strictPort",
+    "prototype": "vite --host 0.0.0.0 --port 5173 --strictPort",
+    "build": "tsc --noEmit && vite build",
+    "preview": "vite preview --host 0.0.0.0 --port 5173 --strictPort",
+    "check": "tsc --noEmit"
+  },
+  "dependencies": {
+    "dompurify": "^3.3.0",
+    "marked": "^17.0.0"
+  },
+  "devDependencies": {
+    "typescript": "^5.9.3",
+    "vite": "^7.1.12"
   }
 }
